@@ -150,22 +150,28 @@ export const constantRoutes = [
   },
 
   {
-    path: '/core/money',
+    path: '/core/audit',
     component: Layout,
     name: 'coreLend',
-    meta: { title: '资金管理', icon: 'el-icon-s-flag' },
+    meta: { title: '流程审核', icon: 'el-icon-s-flag' },
     alwaysShow: true,
     children: [
       {
         path: 'withdraw-audit',
         name: 'coreLendList',
-        component: () => import('@/views/core/money/withdrawAudit'),
+        component: () => import('@/views/core/audit/withdrawAudit'),
         meta: { title: '提现审核' }
+      },
+      {
+        path: 'seller-audit',
+        name: 'sellerAudit',
+        component: () => import('@/views/core/audit/sellerAudit'),
+        meta: { title: '申请卖家审核' }
       },
       {
         path: 'detail/:id',
         name: 'coreLendDetail',
-        component: () => import('@/views/core/money/detail'),
+        component: () => import('@/views/core/audit/detail'),
         meta: { title: '标的详情' },
         hidden: true
       }
