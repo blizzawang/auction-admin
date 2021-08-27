@@ -108,60 +108,69 @@
       </el-row>
     </el-form>
 
-    <el-form label-width="170px">
-      <el-form-item label="是否通过">
-        <el-radio-group v-model="approvalForm.status">
-          <el-radio :label="2">
-            通过
-          </el-radio>
-          <el-radio :label="-1">
-            不通过
-          </el-radio>
-        </el-radio-group>
-      </el-form-item>
+    <div v-if="seller.status === 1">
+      <el-form label-width="170px">
+        <el-form-item label="是否通过">
+          <el-radio-group v-model="approvalForm.status">
+            <el-radio :label="1">
+              通过
+            </el-radio>
+            <el-radio :label="-1">
+              不通过
+            </el-radio>
+          </el-radio-group>
+        </el-form-item>
 
-      <el-form-item label="基本信息是否正确">
-        <el-radio-group v-model="approvalForm.isBaiscInfoOk">
-          <el-radio :label="true">
-            是
-          </el-radio>
-          <el-radio :label="false">
-            否
-          </el-radio>
-        </el-radio-group>
-      </el-form-item>
+        <el-form-item label="基本信息是否正确">
+          <el-radio-group v-model="approvalForm.isBasicInfoOk">
+            <el-radio :label="true">
+              是
+            </el-radio>
+            <el-radio :label="false">
+              否
+            </el-radio>
+          </el-radio-group>
+        </el-form-item>
 
-      <el-form-item label="身份证照是否正确">
-        <el-radio-group v-model="approvalForm.isCardImageOk">
-          <el-radio :label="true">
-            是
-          </el-radio>
-          <el-radio :label="false">
-            否
-          </el-radio>
-        </el-radio-group>
-      </el-form-item>
+        <el-form-item label="身份证照是否正确">
+          <el-radio-group v-model="approvalForm.isCardImageOk">
+            <el-radio :label="true">
+              是
+            </el-radio>
+            <el-radio :label="false">
+              否
+            </el-radio>
+          </el-radio-group>
+        </el-form-item>
 
-      <el-form-item label="联系人是否合法">
-        <el-radio-group v-model="approvalForm.isContactsOk">
-          <el-radio :label="true">
-            是
-          </el-radio>
-          <el-radio :label="false">
-            否
-          </el-radio>
-        </el-radio-group>
-      </el-form-item>
-      <el-form-item label="备注">
-        <el-input v-model="approvalForm.momo" style="width: 300px;" />
-      </el-form-item>
+        <el-form-item label="联系人是否合法">
+          <el-radio-group v-model="approvalForm.isContactsOk">
+            <el-radio :label="true">
+              是
+            </el-radio>
+            <el-radio :label="false">
+              否
+            </el-radio>
+          </el-radio-group>
+        </el-form-item>
+        <el-form-item label="备注">
+          <el-input v-model="approvalForm.momo" style="width: 300px;" />
+        </el-form-item>
 
-      <el-row style="text-align:center">
-        <el-button type="primary" @click="approvalSubmit()">
-          确定
-        </el-button>
-      </el-row>
-    </el-form>
+        <el-row style="text-align:center">
+          <el-button type="primary" @click="approvalSubmit()">
+            确定
+          </el-button>
+        </el-row>
+      </el-form>
+    </div>
+
+    <div v-if="seller.status === 2" style="margin-bottom:50px">
+      <el-alert title="该项申请已审批通过" type="success"></el-alert>
+    </div>
+    <div v-if="seller.status === -1">
+      <el-alert title="该项申请已被拒绝" type="error"></el-alert>
+    </div>
   </div>
 </template>
 
@@ -177,9 +186,9 @@ export default {
       approvalForm: {
         //审批表单
         sellerId: 0,
-        status: 2,
+        status: 1,
         momo: '',
-        isBaiscInfoOk: true,
+        isBasicInfoOk: true,
         isCardImageOk: true,
         isContactsOk: true
       }
@@ -229,7 +238,7 @@ export default {
 
     back() {
       // this.$router.push({path: '/core/seller/list'})
-      this.$router.push('/core/seller/list')
+      this.$router.push('/core/audit/seller-audit')
     },
 
     approvalSubmit() {
@@ -237,7 +246,7 @@ export default {
       this.approvalForm.sellerId = this.$route.params.id
       sellerApi.approval(this.approvalForm).then(response => {
         this.$message.success(response.message)
-        this.$router.push('/core/seller/list')
+        this.$router.push('/core/audit/seller-audit')
       })
     }
   }

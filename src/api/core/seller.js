@@ -9,7 +9,7 @@ export default {
   },
   approval(borrowerApproval) {
     return request({
-      url: '/admin/core/borrower/approval',
+      url: '/admin/sellerAudit/detail/approval',
       method: 'post',
       data: borrowerApproval
     })
