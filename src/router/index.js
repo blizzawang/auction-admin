@@ -121,31 +121,30 @@ export const constantRoutes = [
     children: [
       {
         path: 'list',
-        name: 'coreBorrowerList',
+        name: 'getOutList',
         component: () => import('@/views/core/get-out/list'),
         meta: { title: '违规列表' },
         hidden:true
       },
       {
-        path: 'detail/:id',
-        name: 'coreBorrowerDetail',
-        component: () => import('@/views/core/get-out/detail'),
-        meta: { title: '借款人详情' },
-        hidden: true
+        path: 'store',
+        name: 'storeList',
+        component: () => import('@/views/core/get-out/store'),
+        meta: { title: '店铺列表' },
       },
       {
-        path: 'info-list',
-        name: 'coreBorrowInfoList',
-        component: () => import('@/views/core/borrow-info/list'),
-        meta: { title: '借款列表' }
+        path: 'shop',
+        name: 'shopList',
+        component: () => import('@/views/core/get-out/shop'),
+        meta: { title: '拍品列表' },
       },
       {
-        path: 'info-detail/:id',
-        name: 'coreBorrowInfoDetail',
-        component: () => import('@/views/core/borrow-info/detail'),
-        meta: { title: '借款详情' },
-        hidden: true
-      }
+        path: 'store-shop',
+        name: 'storeShopList',
+        component: () => import('@/views/core/get-out/storeShop'),
+        meta: { title: '所属拍品' },
+        hidden:true
+      },
     ]
   },
 
